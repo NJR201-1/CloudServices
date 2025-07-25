@@ -25,3 +25,4 @@ networks:
   my_swarm_network:
     # 加入已經存在的網路
     external: true
+
