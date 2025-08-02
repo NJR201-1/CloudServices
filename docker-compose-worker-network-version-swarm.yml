@@ -22,7 +22,7 @@ services:
       - my_swarm_network  # 將此服務連接到 my_swarm_network 網路
 
   crawler_tpex:  # 定義一個服務，名稱為 crawler_twse
-    image: linsamtw/tibame_crawler:${DOCKER_IMAGE_VERSION}  # 使用的映像檔名稱與標籤（版本）
+    image: tcayi92/tibame_crawler:${DOCKER_IMAGE_VERSION}  # 使用的映像檔名稱與標籤（版本）
     hostname: "tpex.{{.Task.Slot}}"  # 設定 hostname = tpex
     command: pipenv run celery -A crawler.worker worker --loglevel=info --hostname=%h -Q tpex  
     # 啟動容器後執行的命令，這裡是啟動 Celery worker，指定 app 為 crawler.worker，設定日誌等級為 info，
@@ -34,7 +34,7 @@ services:
       placement:
         # 設定在
         # node label crawler_tpex = true 的機器上執行
-        constraints: [node.labels.crawler_tpex == true]
+        constraints: [node.labels.crawler_tpex == true] 
     restart: always  # 若容器停止或崩潰，自動重新啟動
     environment:
       - TZ=Asia/Taipei  # 設定時區為台北（UTC+8）
